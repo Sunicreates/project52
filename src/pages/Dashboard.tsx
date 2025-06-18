@@ -244,11 +244,15 @@ const Dashboard = () => {
   const currentUser = getCurrentUser();
   if (!currentUser) return null;
 
-  return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {/* Header */}
-      <header className="border-b border-green-500/20 bg-gray-900/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+// ... existing code ...
+
+return (
+  <div className="min-h-screen bg-gray-900 text-white">
+    {/* Header */}
+    <header className="border-b border-green-500/20 bg-gray-900/95 backdrop-blur-sm sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4">
+        {/* Desktop Header */}
+        <div className="hidden md:flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-green-400">Dashboard</h1>
             <span className="text-gray-400">Welcome back, {currentUser.provider === 'github' ? currentUser.login : currentUser.name}!</span>
@@ -281,82 +285,123 @@ const Dashboard = () => {
             </Button>
           </div>
         </div>
-      </header>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400">Completed</p>
-                  <p className="text-2xl font-bold text-green-400">{completedWeeks}/52</p>
-                </div>
-                <CheckCircle2 className="h-8 w-8 text-green-400" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400">Completion Rate</p>
-                  <p className="text-2xl font-bold text-blue-400">{completionRate}%</p>
-                </div>
-                <Calendar className="h-8 w-8 text-blue-400" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400">Under Review</p>
-                  <p className="text-2xl font-bold text-yellow-400">
-                    {projects.filter(p => p.status === 'Under Review').length}
-                  </p>
-                </div>
-                <Clock className="h-8 w-8 text-yellow-400" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400">Total Repos</p>
-                  <p className="text-2xl font-bold text-purple-400">{projects.length}</p>
-                </div>
-                <Github className="h-8 w-8 text-purple-400" />
-              </div>
-            </CardContent>
-          </Card>
+        {/* Mobile Header */}
+        <div className="md:hidden">
+          <div className="flex items-center justify-between mb-3">
+            <h1 className="text-xl font-bold text-green-400">Dashboard</h1>
+            <Button 
+              variant="outline" 
+              onClick={handleLogout}
+              size="sm"
+              className="border-red-500 text-red-400 hover:bg-red-500/10"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="flex items-center space-x-2 text-sm text-gray-400 mb-3">
+            <span>Welcome back, {currentUser.provider === 'github' ? currentUser.login : currentUser.name}!</span>
+            {currentUser.provider === 'github' && (
+              <Github className="h-4 w-4" />
+            )}
+          </div>
+          <div className="flex space-x-2">
+            <Button 
+              onClick={() => setShowChat(!showChat)}
+              size="sm"
+              className="flex-1 bg-green-500 text-black hover:bg-green-400 text-xs"
+            >
+              <MessageSquare className="h-3 w-3 mr-1" />
+              {showChat ? 'Hide Chat' : 'Chat'}
+            </Button>
+            <Button 
+              onClick={() => handleWeekClick(1)}
+              size="sm"
+              className="flex-1 bg-green-500 text-black hover:bg-green-400 text-xs"
+            >
+              <Plus className="h-3 w-3 mr-1" />
+              Add Project
+            </Button>
+          </div>
         </div>
+      </div>
+    </header>
 
-        {/* Week Grid */}
-        <Card className="bg-gray-800 border-green-500/20 w-full">
-          <CardHeader>
-            <CardTitle className="text-green-400">Your 52-Week Journey</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <WeekGrid 
-              projects={projects} 
-              onWeekClick={handleWeekClick}
-              expandedWeek={expandedWeek}
-              onDeleteProject={handleDeleteProject}
-            />
+    <main className="container mx-auto px-4 py-6 md:py-8">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
+        <Card className="bg-gray-800 border-green-500/20">
+          <CardContent className="p-3 md:p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs md:text-sm text-gray-400">Completed</p>
+                <p className="text-lg md:text-2xl font-bold text-green-400">{completedWeeks}/52</p>
+              </div>
+              <CheckCircle2 className="h-6 w-6 md:h-8 md:w-8 text-green-400" />
+            </div>
           </CardContent>
         </Card>
+        
+        <Card className="bg-gray-800 border-green-500/20">
+          <CardContent className="p-3 md:p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs md:text-sm text-gray-400">Completion</p>
+                <p className="text-lg md:text-2xl font-bold text-blue-400">{completionRate}%</p>
+              </div>
+              <Calendar className="h-6 w-6 md:h-8 md:w-8 text-blue-400" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gray-800 border-green-500/20">
+          <CardContent className="p-3 md:p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs md:text-sm text-gray-400">Review</p>
+                <p className="text-lg md:text-2xl font-bold text-yellow-400">
+                  {projects.filter(p => p.status === 'Under Review').length}
+                </p>
+              </div>
+              <Clock className="h-6 w-6 md:h-8 md:w-8 text-yellow-400" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gray-800 border-green-500/20">
+          <CardContent className="p-3 md:p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs md:text-sm text-gray-400">Total</p>
+                <p className="text-lg md:text-2xl font-bold text-purple-400">{projects.length}</p>
+              </div>
+              <Github className="h-6 w-6 md:h-8 md:w-8 text-purple-400" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* Chat Overlay */}
-        {showChat && (
-          <Chat isAdmin={currentUser?.role === 'admin'} onClose={() => setShowChat(false)} />
-        )}
-      </main>
+      {/* Week Grid */}
+      <Card className="bg-gray-800 border-green-500/20 w-full">
+        <CardHeader className="pb-3 md:pb-6">
+          <CardTitle className="text-green-400 text-lg md:text-xl">Your 52-Week Journey</CardTitle>
+        </CardHeader>
+        <CardContent className="px-2 md:px-6">
+          <WeekGrid 
+            projects={projects} 
+            onWeekClick={handleWeekClick}
+            expandedWeek={expandedWeek}
+            onDeleteProject={handleDeleteProject}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Chat Overlay */}
+      {showChat && (
+        <Chat isAdmin={currentUser?.role === 'admin'} onClose={() => setShowChat(false)} />
+      )}
+    </main>
+
 
       {showProjectForm && selectedWeek && (
         <ProjectForm
@@ -376,8 +421,11 @@ const Dashboard = () => {
           week={selectedWeek}
           project={projects.find(p => p.week === selectedWeek)}
         />
+        
+      
       )}
     </div>
+    
   );
 };
 

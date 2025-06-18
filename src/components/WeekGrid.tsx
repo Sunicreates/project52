@@ -54,52 +54,53 @@ export const WeekGrid = ({ projects, onWeekClick, expandedWeek, onDeleteProject 
     }
   };
 
-  return (
-    <div className="grid grid-cols-7 gap-4">
-      {weeks.map((week) => {
-        const status = getWeekStatus(week);
-        const project = getWeekProject(week);
-        
-        return (
-          <button
-            key={week}
-            onClick={() => onWeekClick(week)}
-            className={`p-4 rounded-lg border-2 ${getStatusColor(status)} hover:border-green-500 transition-colors relative group`}
-          >
-            <div className="text-center">
-              <div className="text-sm font-bold mb-1">Week {week}</div>
-              <div className="text-2xl">
-                {status === 'Not Started' ? (
-                  expandedWeek === week ? (
-                    <ChevronUp className="h-6 w-6 mx-auto" />
-                  ) : (
-                    <Plus className="h-6 w-6 mx-auto" />
-                  )
+ // ... existing code ...
+
+return (
+  <div className="grid grid-cols-7 gap-2 md:gap-4">
+    {weeks.map((week) => {
+      const status = getWeekStatus(week);
+      const project = getWeekProject(week);
+      
+      return (
+        <button
+          key={week}
+          onClick={() => onWeekClick(week)}
+          className={`p-2 md:p-4 rounded-lg border-2 ${getStatusColor(status)} hover:border-green-500 transition-colors relative group`}
+        >
+          <div className="text-center">
+            <div className="text-xs md:text-sm font-bold mb-1">W{week}</div>
+            <div className="text-lg md:text-2xl">
+              {status === 'Not Started' ? (
+                expandedWeek === week ? (
+                  <ChevronUp className="h-4 w-4 md:h-6 md:w-6 mx-auto" />
                 ) : (
-                  getStatusIcon(status)
-                )}
-              </div>
-              {project && (
-                <div className="text-xs mt-2 truncate">
-                  {project.title}
-                </div>
+                  <Plus className="h-4 w-4 md:h-6 md:w-6 mx-auto" />
+                )
+              ) : (
+                getStatusIcon(status)
               )}
             </div>
-            
-            {/* Delete button - only shown on hover for weeks with projects */}
             {project && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500/20 hover:bg-red-500/30 text-red-400"
-                onClick={(e) => handleDelete(e, week)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <div className="text-xs mt-1 md:mt-2 truncate hidden md:block">
+                {project.title}
+              </div>
             )}
-          </button>
-        );
-      })}
-    </div>
-  );
-};
+          </div>
+          
+          {/* Delete button - only shown on hover for weeks with projects */}
+          {project && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-1 right-1 md:top-2 md:right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-red-500/20 hover:bg-red-500/30 text-red-400"
+              onClick={(e) => handleDelete(e, week)}
+            >
+              <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+            </Button>
+          )}
+        </button>
+      );
+    })}
+  </div>
+);
