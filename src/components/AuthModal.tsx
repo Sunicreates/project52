@@ -7,7 +7,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Github, Mail, Lock, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { initiateGitHubLogin, isAuthenticated } from '@/lib/github-auth';
+import { initiateGitHubLogin, isAuthenticated, getCurrentUser} from '@/lib/github-auth';
+
 
 const API_URL = 'https://five2projects.onrender.com/api';
 
@@ -67,8 +68,14 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
 
   const handleGitHubAuth = () => {
     if (isAuthenticated()) {
-      toast.info('You are already logged in');
-      return;
+      const user = getCurrentUser();
+      if (user) {
+        toast.success('Already logged in!');
+        onClose();
+        // Force redirect by reloading the page
+        window.location.href = user.role === 'admin' ? '/admin' : '/dashboard';
+        return;
+      }
     }
     initiateGitHubLogin();
   };
