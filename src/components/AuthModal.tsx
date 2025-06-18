@@ -143,7 +143,7 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
                 {isLoading ? 'Processing...' : (mode === 'login' ? 'Login' : 'Sign Up')}
               </Button>
             </form>
-           { /*
+         
             <div className="mt-4">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -159,7 +159,7 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full mt-4 border-green-500/30 text-white hover:bg-green-500/10"
+                className="w-full mt-4 border-green-500/30 bg-gray-400 text-black hover:bg-green-500/10"
                 onClick={handleGitHubAuth}
               >
                 <Github className="h-4 w-4 mr-2" />
@@ -167,13 +167,7 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
               </Button>
             </div>
             
-            <div className="mt-4 text-center text-sm text-gray-400">
-              <span>Demo credentials: </span>
-              <span className="text-green-400">
-                Admin: admin@52projects.com / admin123
-              </span>
-            </div>
-            */}
+
 
           </CardContent>
         </Card>

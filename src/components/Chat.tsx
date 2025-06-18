@@ -90,7 +90,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
         
         setMessages(filteredMessages);
       } catch (error) {
-        console.error('Error fetching messages:', error);
         toast.error('Failed to load messages');
       }
     };
@@ -161,8 +160,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
         isBroadcast: isAdmin && adminView === 'broadcast'
       };
 
-      console.log('Sending message:', messageData);
-
       const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
         headers: {
@@ -174,7 +171,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        console.error('Error response:', errorData);
         throw new Error(errorData?.error || 'Failed to send message');
       }
       
@@ -195,7 +191,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
         toast.success('Broadcast message sent to all users');
       }
     } catch (error) {
-      console.error('Error sending message:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to send message');
     }
   };
@@ -275,7 +270,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
       setMessages(prev => prev.filter(msg => msg.id !== messageId));
       toast.success('Message deleted successfully');
     } catch (error) {
-      console.error('Error deleting message:', error);
       toast.error('Failed to delete message. Please try again.');
     }
   };

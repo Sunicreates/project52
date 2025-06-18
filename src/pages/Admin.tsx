@@ -54,9 +54,6 @@ const Admin = () => {
       return;
     }
     
-      console.log('Fetching projects from:', `${API_URL}/projects`);
-      console.log('Using auth token:', token);
-
       const response = await fetch(`${API_URL}/projects`, {
         method: 'GET',
         headers: {
@@ -67,17 +64,12 @@ const Admin = () => {
         credentials: 'include'
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        console.error('Error response:', errorData);
         throw new Error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('Raw response data:', data);
     
       // Check if data is an array
       const visibleProjects = data.filter((project: Project) => !project.isHidden);
@@ -95,14 +87,9 @@ const Admin = () => {
         isHidden: project.isHidden || false
       }));
 
-
-      // Transform the data to ensure it has the correct structure
-
-      console.log('Transformed projects data:', transformedData);
       setProjects(transformedData);
       setFilteredProjects(transformedData);
     } catch (error) {
-      console.error('Error fetching projects:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to load projects');
     }
   };
@@ -168,23 +155,18 @@ const Admin = () => {
   
       
       if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        console.error('Error response:', errorData);
         throw new Error(`Failed to update project status: ${response.status} ${response.statusText}`);
       }
       
       const updatedProject = await response.json();
-      console.log('Updated project:', updatedProject);
       
       setProjects((prev: Project[]) => {
         const newProjects = prev.map(p => p._id === updatedProject._id ? updatedProject : p);
-        console.log('Updated projects state:', newProjects);
         return newProjects;
       });
     
       toast.success('Project status updated successfully');
     } catch (error) {
-      console.error('Error updating project status:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to update project status');
     }
   };
@@ -242,7 +224,6 @@ const Admin = () => {
       setProjects(prev => prev.filter(p => p._id !== projectId));
       toast.success('Project hidden from admin view');
     } catch (error) {
-      console.error('Error hiding project:', error);
       toast.error('Failed to hide project');
     }
   };
