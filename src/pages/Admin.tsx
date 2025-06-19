@@ -247,22 +247,22 @@ const Admin = () => {
     <div className="min-h-screen bg-gray-900 text-white font-mono">
       {/* Header */}
       <header className="border-b border-green-500/20 bg-gray-900/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+        <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
             <h1 className="text-2xl font-bold text-green-400">Admin Panel</h1>
-            <span className="text-gray-400">Welcome, {currentUser.name}!</span>
+            <span className="text-gray-400 text-sm">Welcome, {currentUser.name}!</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
             <Button 
               onClick={() => setShowChat(!showChat)}
-              className="bg-green-500 text-black hover:bg-green-400"
+              className="w-full sm:w-auto bg-green-500 text-black hover:bg-green-400 text-sm"
             >
               <MessageSquare className="h-4 w-4 mr-2" />
               {showChat ? 'Hide Chat' : 'View Messages'}
             </Button>
             <Button 
               onClick={handleDownloadCSV}
-              className="bg-blue-500 text-white hover:bg-blue-400"
+              className="w-full sm:w-auto bg-blue-500 text-white hover:bg-blue-400 text-sm"
             >
               <Download className="h-4 w-4 mr-2" />
               Download CSV
@@ -270,7 +270,7 @@ const Admin = () => {
             <Button 
               variant="outline" 
               onClick={handleLogout}
-              className="border-red-500 text-red-400 hover:bg-red-500/10"
+              className="w-full sm:w-auto border-red-500 text-red-400 hover:bg-red-500/10 text-sm"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -279,47 +279,44 @@ const Admin = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8">
         {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-6">
           <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">{projects.length}</div>
-                <div className="text-sm text-gray-400">Total Submissions</div>
+                <div className="text-xl sm:text-2xl font-bold text-green-400">{projects.length}</div>
+                <div className="text-xs sm:text-sm text-gray-400">Total Submissions</div>
               </div>
             </CardContent>
           </Card>
-          
           <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">
+                <div className="text-xl sm:text-2xl font-bold text-blue-400">
                   {projects.filter(p => p.status === 'Approved').length}
                 </div>
-                <div className="text-sm text-gray-400">Approved</div>
+                <div className="text-xs sm:text-sm text-gray-400">Approved</div>
               </div>
             </CardContent>
           </Card>
-          
           <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-400">
+                <div className="text-xl sm:text-2xl font-bold text-yellow-400">
                   {projects.filter(p => p.status === 'Under Review').length}
                 </div>
-                <div className="text-sm text-gray-400">Under Review</div>
+                <div className="text-xs sm:text-sm text-gray-400">Under Review</div>
               </div>
             </CardContent>
           </Card>
-          
           <Card className="bg-gray-800 border-green-500/20">
-            <CardContent className="p-6">
+            <CardContent className="p-3 sm:p-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-red-400">
+                <div className="text-xl sm:text-2xl font-bold text-red-400">
                   {projects.filter(p => p.status === 'Not Started').length}
                 </div>
-                <div className="text-sm text-gray-400">Not Started</div>
+                <div className="text-xs sm:text-sm text-gray-400">Not Started</div>
               </div>
             </CardContent>
           </Card>
@@ -331,19 +328,18 @@ const Admin = () => {
             <CardTitle className="text-green-400">Filters</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
                   placeholder="Search projects..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-gray-700 border-green-500/30 text-white"
+                  className="pl-10 bg-gray-700 border-green-500/30 text-white text-sm"
                 />
               </div>
-              
               <Select value={weekFilter} onValueChange={setWeekFilter}>
-                <SelectTrigger className="bg-gray-700 border-green-500/30 text-white">
+                <SelectTrigger className="bg-gray-700 border-green-500/30 text-white text-sm">
                   <SelectValue placeholder="Filter by week" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-700 border-green-500/30">
@@ -355,9 +351,8 @@ const Admin = () => {
                   ))}
                 </SelectContent>
               </Select>
-              
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="bg-gray-700 border-green-500/30 text-white">
+                <SelectTrigger className="bg-gray-700 border-green-500/30 text-white text-sm">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-700 border-green-500/30">
@@ -367,7 +362,6 @@ const Admin = () => {
                   <SelectItem value="Approved">Approved</SelectItem>
                 </SelectContent>
               </Select>
-              
               <Button 
                 variant="outline"
                 onClick={() => {
@@ -375,7 +369,7 @@ const Admin = () => {
                   setWeekFilter('all');
                   setStatusFilter('all');
                 }}
-                className="border-gray-500 text-gray-300 hover:bg-gray-700"
+                className="border-gray-500 text-gray-300 hover:bg-gray-700 text-sm"
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Clear
@@ -393,7 +387,7 @@ const Admin = () => {
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-              <Table>
+              <Table className="min-w-[700px] text-xs sm:text-sm">
                 <TableHeader>
                   <TableRow>
                     <TableHead>User</TableHead>
@@ -408,9 +402,9 @@ const Admin = () => {
                 </TableHeader>
                 <TableBody>
                   {filteredProjects.map((project) => (
-                    <TableRow key={project._id}>
-                      <TableCell>{project.userName}</TableCell>
-                      <TableCell>{project.title}</TableCell>
+                    <TableRow key={project._id} className="align-top">
+                      <TableCell className="break-words max-w-[120px]">{project.userName}</TableCell>
+                      <TableCell className="break-words max-w-[120px]">{project.title}</TableCell>
                       <TableCell>
                         {project.githubRepo ? (
                           <a 
@@ -444,11 +438,11 @@ const Admin = () => {
                       <TableCell>{getStatusBadge(project.status)}</TableCell>
                       <TableCell>
                         {project.status === 'Under Review' ? (
-                          <div className="flex gap-2">
+                          <div className="flex flex-col sm:flex-row gap-2">
                             <Button
                               size="sm"
                               onClick={() => handleStatusChange(project._id, 'Approved')}
-                              className="bg-green-500 text-white hover:bg-green-400"
+                              className="bg-green-500 text-white hover:bg-green-400 text-xs sm:text-sm"
                             >
                               <CheckCircle className="h-4 w-4 mr-1" />
                               Approve
@@ -456,7 +450,7 @@ const Admin = () => {
                             <Button
                               size="sm"
                               onClick={() => handleStatusChange(project._id, 'Not Started')}
-                              className="bg-red-500 text-white hover:bg-red-400"
+                              className="bg-red-500 text-white hover:bg-red-400 text-xs sm:text-sm"
                             >
                               <XCircle className="h-4 w-4 mr-1" />
                               Reject
