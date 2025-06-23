@@ -335,7 +335,7 @@ return (
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs md:text-sm text-gray-400">Completed</p>
-                <p className="text-lg md:text-2xl font-bold text-green-400">{completedWeeks}/52</p>
+                <p className="text-lg md:text-2xl font-bold text-green-400">{completedWeeks/2}/52</p>
               </div>
               <CheckCircle2 className="h-6 w-6 md:h-8 md:w-8 text-green-400" />
             </div>
@@ -347,7 +347,7 @@ return (
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs md:text-sm text-gray-400">Completion</p>
-                <p className="text-lg md:text-2xl font-bold text-blue-400">{completionRate}%</p>
+                <p className="text-lg md:text-2xl font-bold text-blue-400">{completionRate/2}%</p>
               </div>
               <Calendar className="h-6 w-6 md:h-8 md:w-8 text-blue-400" />
             </div>
@@ -360,7 +360,7 @@ return (
               <div>
                 <p className="text-xs md:text-sm text-gray-400">Review</p>
                 <p className="text-lg md:text-2xl font-bold text-yellow-400">
-                  {projects.filter(p => p.status === 'Under Review').length}
+                  {projects.filter(p => p.status === 'Under Review').length/2}
                 </p>
               </div>
               <Clock className="h-6 w-6 md:h-8 md:w-8 text-yellow-400" />
@@ -373,7 +373,7 @@ return (
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs md:text-sm text-gray-400">Total</p>
-                <p className="text-lg md:text-2xl font-bold text-purple-400">{projects.length}</p>
+                <p className="text-lg md:text-2xl font-bold text-purple-400">{projects.length/2}</p>
               </div>
               <Github className="h-6 w-6 md:h-8 md:w-8 text-purple-400" />
             </div>
