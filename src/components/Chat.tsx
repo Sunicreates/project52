@@ -49,7 +49,7 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const currentUser = getCurrentUser();
 
-  // Get unique users from messages
+ // Admin can see all users
   const users = Array.from(new Set(messages.map(msg => msg.senderId)))
     .map(id => {
       const msg = messages.find(m => m.senderId === id);
@@ -70,16 +70,12 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
         if (!response.ok) throw new Error('Failed to fetch messages');
         const data = await response.json();
         
-        // Filter messages based on visibility rules
+        
         const filteredMessages = data.messages.filter((message: Message) => {
           if (isAdmin) {
-            // Admin can see all messages
+            
             return true;
           } else {
-            // Regular users can only see:
-            // 1. Their own messages
-            // 2. Messages sent to them by admin
-            // 3. Messages sent to everyone
             return (
               message.senderId === currentUser?.id ||
               (message.isAdmin && (!message.recipientId || message.recipientId === currentUser?.id)) ||
@@ -95,7 +91,6 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
     };
 
     fetchMessages();
-    // Set up polling for new messages
     const interval = setInterval(fetchMessages, 5000);
     return () => clearInterval(interval);
   }, [isAdmin, currentUser?.id]);
@@ -220,23 +215,22 @@ export const Chat = ({ isAdmin = false, onClose }: ChatProps) => {
     return '📎';
   };
 
-  // Filter messages for inbox (only direct messages from admin to user)
   const inboxMessages = messages.filter(message => {
     if (isAdmin) return false; // Admin doesn't need inbox
     return message.isAdmin && !message.isBroadcast && message.recipientId === currentUser?.id;
   });
 
-  // Filter messages for chat based on admin view
+  
   const chatMessages = messages.filter(message => {
     if (isAdmin) {
       if (adminView === 'broadcast') {
-        return message.isAdmin && message.isBroadcast;// Show only broadcast messages
+        return message.isAdmin && message.isBroadcast;
       } else if (adminView === 'user') {
-        // For user chat view, show direct messages between admin and selected user
+       
         return true;
       }
     } else {
-      // For regular users, show their direct messages with admin and broadcast messages
+      
       return (
         message.senderId === currentUser?.id ||
         (message.isAdmin && (
