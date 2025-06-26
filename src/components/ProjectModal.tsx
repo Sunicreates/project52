@@ -9,6 +9,7 @@ import { Github, Calendar, FileText, Link, Layers } from 'lucide-react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+//FORM TO HANDLE FINAL PROJECT DETAILS
 interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
