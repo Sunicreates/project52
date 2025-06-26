@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle2, Clock, Github, Plus, ChevronUp, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+//WEEK GRID TO SELECT AND UPDATE PROJECT DETAILS
 interface WeekGridProps {
   projects: any[];
   onWeekClick: (week: number) => void;
@@ -48,13 +49,13 @@ export const WeekGrid = ({ projects, onWeekClick, expandedWeek, onDeleteProject 
   };
 
   const handleDelete = (e: React.MouseEvent, week: number) => {
-    e.stopPropagation(); // Prevent triggering the week click
+    e.stopPropagation(); 
     if (onDeleteProject) {
       onDeleteProject(week);
     }
   };
 
- // ... existing code ...
+
 
 return (
   <div className="grid grid-cols-7 gap-2 md:gap-4">
@@ -88,7 +89,6 @@ return (
             )}
           </div>
           
-          {/* Delete button - only shown on hover for weeks with projects */}
           {project && (
             <Button
               variant="ghost"
