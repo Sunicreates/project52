@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const API_URL = 'https://five2projects.onrender.com/api';
 
+//MESSAGING SYSTEM BETWEEN ADMIN AND USER
+
 interface Message {
   id: string;
   senderId: string;
