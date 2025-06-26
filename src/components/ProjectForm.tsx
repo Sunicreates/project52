@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Code, Layers } from 'lucide-react';
 
+//FORM TO SET USER'S GOAL ON WHAT THEY ARE GOING TO DO  
 interface ProjectFormProps {
   onSubmit: (data: { 
     title: string; 
