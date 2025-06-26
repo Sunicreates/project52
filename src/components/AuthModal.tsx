@@ -49,7 +49,7 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
 
       const data = await response.json();
       
-      // Store user data and token
+     
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('auth_token', data.token);
       
@@ -72,7 +72,7 @@ export const AuthModal = ({ isOpen, onClose, mode }: AuthModalProps) => {
       if (user) {
         toast.success('Already logged in!');
         onClose();
-        // Force redirect by reloading the page
+    
         window.location.href = user.role === 'admin' ? '/admin' : '/dashboard';
         return;
       }
