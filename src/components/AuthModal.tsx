@@ -12,6 +12,8 @@ import { initiateGitHubLogin, isAuthenticated, getCurrentUser } from '@/lib/gith
 
 const API_URL = 'https://five2projects.onrender.com/api';
 
+//GIT HUB OATH AUTHENTICATION
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
