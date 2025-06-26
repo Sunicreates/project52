@@ -244,7 +244,7 @@ const Dashboard = () => {
   const currentUser = getCurrentUser();
   if (!currentUser) return null;
 
-// ... existing code ...
+
 
 return (
   <div className="min-h-screen bg-gray-900 text-white">
