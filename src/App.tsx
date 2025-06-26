@@ -10,7 +10,7 @@ import NotFound from "./pages/NotFound";
 import GitHubCallback from "./pages/GitHubCallback";
 
 const queryClient = new QueryClient();
-
+// ROUTING SYSTEM INORDER TO MAINTAIN CORRECT NAVIGATION OF USERS AND ADMIN
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
