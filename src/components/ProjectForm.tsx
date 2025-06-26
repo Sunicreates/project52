@@ -35,14 +35,13 @@ export const ProjectForm = ({ onSubmit, onCancel }: ProjectFormProps) => {
       techStack
     });
 
-    // Reset form
+   
     setTitle('');
     setDescription('');
     setTechStack('');
   };
 
   const handleCancel = () => {
-    // Reset form
     setTitle('');
     setDescription('');
     setTechStack('');
