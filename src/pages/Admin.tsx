@@ -71,7 +71,7 @@ const Admin = () => {
 
       const data = await response.json();
     
-      // Check if data is an array
+    
       const visibleProjects = data.filter((project: Project) => !project.isHidden);
       const transformedData = visibleProjects.map(project => ({
         _id: project._id || project.id,
@@ -121,7 +121,7 @@ const Admin = () => {
 
   const handleStatusChange = async (projectId: string, newStatus: string) => {
     try {
-      // Check if the project exists in the current state
+     
       const projectExists = projects.some(p => p._id === projectId);
       if (!projectExists) {
         toast.error('Project not found in the current list - refreshing');
@@ -129,7 +129,7 @@ const Admin = () => {
         return;
       }
   
-      // Proceed with the API call if the project exists
+    
       const token = localStorage.getItem('auth_token');
       if (!token) {
         toast.error('Authentication token missing. Please log in again.');
@@ -245,7 +245,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white font-mono">
-      {/* Header */}
+      {/* HEADER */}
       <header className="border-b border-green-500/20 bg-gray-900/95 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
@@ -280,7 +280,7 @@ const Admin = () => {
       </header>
 
       <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8">
-        {/* Stats */}
+        {/* STATS */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-6">
           <Card className="bg-gray-800 border-green-500/20">
             <CardContent className="p-3 sm:p-6">
@@ -322,7 +322,7 @@ const Admin = () => {
           </Card>
         </div>
 
-        {/* Filters */}
+        {/* FILTERS */}
         <Card className="bg-gray-800 border-green-500/20 mb-6">
           <CardHeader>
             <CardTitle className="text-green-400">Filters</CardTitle>
@@ -378,7 +378,7 @@ const Admin = () => {
           </CardContent>
         </Card>
 
-        {/* Projects Table */}
+        {/* TABLE */}
         <Card className="bg-gray-800 border-green-500/20">
           <CardHeader>
             <CardTitle className="text-green-400">
@@ -478,7 +478,7 @@ const Admin = () => {
           </CardContent>
         </Card>
 
-        {/* Chat */}
+        {/* CHAT */}
         {showChat && (
           <Chat isAdmin onClose={() => setShowChat(false)} />
         )}
