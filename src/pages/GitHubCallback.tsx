@@ -9,7 +9,7 @@ const GitHubCallback = () => {
 
   useEffect(() => {
     const code = searchParams.get('code');
-    
+    //ROUTING TO THE DASBOARD IF AUTH IS SUCCESSFUL
     if (!code) {
       toast.error('No authorization code received from GitHub');
       navigate('/');
